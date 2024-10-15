@@ -108,7 +108,9 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
+    <Compile Include="Assets\script\ScriptableObject\ItemData.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
+    <Compile Include="Assets\Prefab\Item\Ice.cs" />
     <Compile Include="Assets\script\Timelimit.cs" />
     <Compile Include="Assets\script\NavPathArrow.cs" />
     <Compile Include="Assets\script\AI\RandomMovementAI.cs" />

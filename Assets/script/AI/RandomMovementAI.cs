@@ -15,7 +15,7 @@ public class ShadowMovement : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         agent.speed = npcSpeed;               // 移動速度の設定
-        agent.stoppingDistance = 0.5f;        // 停止距離の精度
+        agent.stoppingDistance = 1f;        // 停止距離の精度
         agent.acceleration = 10f;             // 加速度設定
         agent.autoBraking = false;            // 自動ブレーキをオフ
         anim = GetComponent<Animator>();

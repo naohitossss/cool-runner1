@@ -12,7 +12,7 @@ public class LaneMovement : MonoBehaviour
     public float laneChangeSpeed = 15f;       // 横移動（レーン変更）の速度
     public float rotationSpeed = 12f;         // 回転速度
     public float runSpeed = 3f;               // スプリント時の速度
-    public float knockbackForce = 100f;       // ノックバックの強さ
+    public float knockbackForce =0.1111f;       // ノックバックの強さ
     public float knockbackDuration = 3f;      // ノックバックの持続時間
     private float knockbackTimer = 0f;        // ノックバックの経過時間
     private Vector3 knockbackDirection;
@@ -88,21 +88,38 @@ public class LaneMovement : MonoBehaviour
 
             case CharacterState.Knockback:
                 knockbackTimer -= Time.deltaTime;
+                bool afterJump = false;
 
                 if (knockbackTimer > 2.5f)
                 {
                     // ノックバック方向に移動
-                    controller.Move(knockbackDirection * knockbackForce * Time.deltaTime);
+                    controller.Move((knockbackDirection+ velocity) * knockbackForce  *Time.deltaTime);
                 }
                 else if (knockbackTimer > 0f)
                 {
                     // 一時停止
                     controller.Move(Vector3.zero);
+                    if (Input.GetKeyDown(KeyCode.A) && currentLane > 0)
+                    {
+                        currentLane--;
+                        targetLanePosition = new Vector3(lanes[currentLane].x, transform.position.y, transform.position.z);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.D) && currentLane < lanes.Length - 1)
+                    {
+                        currentLane++;
+                        targetLanePosition = new Vector3(lanes[currentLane].x, transform.position.y, transform.position.z);
+                    }
+                    else if(Input.GetKeyDown(KeyCode.Space) && isGrounded)
+                {
+                        afterJump = true;
+                    }
+
                 }
                 else
                 {
                     // ノックバック終了
                     state = CharacterState.Normal;
+                    if(afterJump) state = CharacterState.Jumping;
                 }
                 break;
 
