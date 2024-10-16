@@ -8,8 +8,6 @@ public class ItemData : ScriptableObject
     public int value;
     public bool isStackable;
     public int maxStackSize;
-    public void Use()
-    {
-        Debug.Log("Žg—p: " + itemName);
-    }
+    public GameObject itemSlot;
+    
 }

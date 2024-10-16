@@ -63,6 +63,7 @@
     <Compile Include="Assets\script\EndLevelTrigger.cs" />
     <Compile Include="Assets\script\EventHandler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
+    <Compile Include="Assets\Prefab\Item\EnergyDrink\EnergyDrink.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Loading Games\Toon City Pack\Demo\Scripts\TrafficLights.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
@@ -107,10 +108,11 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
+    <Compile Include="Assets\Prefab\Item\Ice\Item.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
+    <Compile Include="Assets\script\UI\Invertory.cs" />
     <Compile Include="Assets\script\ScriptableObject\ItemData.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
-    <Compile Include="Assets\Prefab\Item\Ice.cs" />
     <Compile Include="Assets\script\Timelimit.cs" />
     <Compile Include="Assets\script\NavPathArrow.cs" />
     <Compile Include="Assets\script\AI\RandomMovementAI.cs" />
