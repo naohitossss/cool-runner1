@@ -7244,6 +7244,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ice (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7268216308617486483, guid: 8d343b86ebc61e44fa974285106c53fc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16886,8 +16890,8 @@ MonoBehaviour:
   minStroke: 0
   maxStroke: 100
   currentStroke: 0
-  sunExposureRate: 2.01
-  shadeRecoveryRate: 0.97
+  sunExposureRate: 4.48
+  shadeRecoveryRate: 1.07
   strokeBar: {fileID: 1941999415}
   shadowCollider: {fileID: 0}
 --- !u!114 &1227755448
@@ -16923,6 +16927,7 @@ MonoBehaviour:
   runSpeed: 3
   knockbackForce: 5
   knockbackDuration: 3
+  energyTimer: 0
   jumpHeight: 2
   gravity: -9.81
   groundLayer:
@@ -23807,6 +23812,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ice
       objectReference: {fileID: 0}
+    - target: {fileID: 7268216308617486483, guid: 8d343b86ebc61e44fa974285106c53fc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -28078,6 +28087,10 @@ PrefabInstance:
     - target: {fileID: 7268216308617486483, guid: 8d343b86ebc61e44fa974285106c53fc, type: 3}
       propertyPath: m_Name
       value: Ice (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7268216308617486483, guid: 8d343b86ebc61e44fa974285106c53fc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

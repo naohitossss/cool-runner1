@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System.Collections;
 
 public class Inventory : MonoBehaviour
 {
@@ -12,13 +12,13 @@ public class Inventory : MonoBehaviour
     public ItemData iceItem;          
     public ItemData energyDrinkItem;
     private HeatStroke heatstroke;
-    private ShadowCollider shadowcollider;
+    private LaneMovement laneMovement;
 
     private void Awake()
     {
         heatstroke = GetComponent<HeatStroke>();
-        shadowcollider = GetComponent<ShadowCollider>();
-    }
+        laneMovement = GetComponent<LaneMovement>();
+}
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
@@ -82,7 +82,8 @@ public class Inventory : MonoBehaviour
                 
             }
             else {
-            itemToCountMap[item] -= count;
+                Debug.Log("use");
+                itemToCountMap[item] -= count;
                 switch (item.itemName)
                 {
                     case "Ice":
@@ -91,22 +92,13 @@ public class Inventory : MonoBehaviour
 
                     // 他のアイテム名に対しても特別な処理を追加可能
                     case "EnergyDrink":
-                        shadowcollider.SetIfShadowForDuration(item.value);
+                        laneMovement.DrinkEnergy(item.value);
                         break;
                 }
             }
         }
 
         UpdateInventoryUI(itemToCountMap);
-    }
-
-    public void UseItem() {
-
-        if (Input.GetButton("Q")) { 
-        
-        }
-    
-    
     }
 
 

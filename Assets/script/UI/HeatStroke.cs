@@ -58,8 +58,7 @@ public class HeatStroke : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
 
         // 判断角色是否在奔跑或静止
-        bool isRunning = Input.GetKey(KeyCode.LeftShift) && (horizontal != 0 || vertical != 0);
-        bool isIdle = horizontal == 0 && vertical == 0;
+        bool isRunning = Input.GetKey(KeyCode.LeftShift) ;
         bool isJumping = Input.GetKey(KeyCode.Space);
 
 
@@ -83,7 +82,7 @@ public class HeatStroke : MonoBehaviour
         {
             currentStroke += sunExposureRate * Time.deltaTime;
         }
-        else if (isIdle && currentStroke > minStroke && shadowCollider.ifShadow)
+        else if ( currentStroke > minStroke && shadowCollider.ifShadow)
         {
             currentStroke -= shadeRecoveryRate * Time.deltaTime; // 静止时减少中暑值
         }
