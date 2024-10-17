@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class ShadowCollider : MonoBehaviour
 {
@@ -27,5 +28,17 @@ public class ShadowCollider : MonoBehaviour
         }
         texts.text = "是否在阴影中：" + ifShadow;
     }
+    public IEnumerator SetIfShadowForDuration(float time)
+    {
+        ifShadow = true;
+        Debug.Log("drink");
+        // 指定した秒数だけ待機
+        yield return new WaitForSeconds(time);
+
+        // その後 `ifShadow` を `false` に戻す
+        ifShadow = false;
+
+    }
+
 }
 

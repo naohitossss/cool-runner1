@@ -10,17 +10,19 @@ public class ShadowMovement : MonoBehaviour
     private Animator anim;
     private Vector3 newPos;
     private int maxAttempts = 10;             // 影の中の位置を探す最大試行回数
+    private int GroundLayerMask;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.speed = npcSpeed;               // 移動速度の設定
-        agent.stoppingDistance = 1f;        // 停止距離の精度
+        agent.stoppingDistance = 1.5f;        // 停止距離の精度
         agent.acceleration = 10f;             // 加速度設定
         agent.autoBraking = false;            // 自動ブレーキをオフ
         anim = GetComponent<Animator>();
 
         MoveToNewPosition();                  // 最初の目的地を設定
+        GroundLayerMask = 1 << NavMesh.GetAreaFromName("Ground");
     }
 
     void Update()
@@ -56,10 +58,7 @@ public class ShadowMovement : MonoBehaviour
         {
             agent.SetDestination(newPos); // NavMeshAgent に新しい目的地を設定
         }
-        else
-        {
-            Debug.LogWarning("影の中の目的地が見つかりませんでした");
-        }
+        
     }
 
     // 位置が影の中にあるかを判定する関数
