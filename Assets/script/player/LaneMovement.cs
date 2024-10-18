@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 
 public class LaneMovement : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class LaneMovement : MonoBehaviour
     public float knockbackForce =0.1111f;       // ノックバックの強さ
     public float knockbackDuration = 3f;      // ノックバックの持続時間
     private float knockbackTimer = 0f;        // ノックバックの経過時間
+    public float energyTimer;                 //エナジーアイテムの持続時間
     private Vector3 knockbackDirection;
     private bool isGrounded;                  // 地面にいるかどうかのフラグ
 
@@ -29,7 +31,7 @@ public class LaneMovement : MonoBehaviour
     private Vector3 moveDirection;            // 前進の移動方向
     private Vector3 targetLanePosition;       // 移動先のレーン位置
 
-    private enum CharacterState { Normal, Knockback, Jumping }
+    private enum CharacterState { Normal, Energy ,Knockback, Jumping }
     private CharacterState state = CharacterState.Normal; // キャラクター状態
 
     void Start()
@@ -83,6 +85,29 @@ public class LaneMovement : MonoBehaviour
                 RotateTowardsMovementDirection();
 
                 // アニメーション更新
+                UpdateAnim();
+                break;
+            case CharacterState.Energy:
+                energyTimer -= Time.deltaTime;
+                if(energyTimer < 0) state = CharacterState.Normal;
+                if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+                {
+                    velocity.y = Mathf.Sqrt(jumpHeight * -10f * gravity);
+                    anim.SetTrigger("Jump");
+                    state = CharacterState.Jumping;
+                }
+                moveDirection = Vector3.forward * moveSpeed;
+                
+                moveDirection *= runSpeed;
+
+                HandleLaneChange();
+
+                velocity.y += gravity * Time.deltaTime;
+
+                controller.Move((moveDirection + velocity) * Time.deltaTime);
+
+                RotateTowardsMovementDirection();
+
                 UpdateAnim();
                 break;
 
@@ -157,6 +182,12 @@ public class LaneMovement : MonoBehaviour
         // 横方向のみの移動
         Vector3 newPosition = Vector3.MoveTowards(transform.position, targetLanePosition, laneChangeSpeed * Time.deltaTime);
         controller.Move(new Vector3(newPosition.x - transform.position.x, 0, 0));
+    }
+
+    //エナジーアイテムの機能処理
+    public void DrinkEnergy(float time) {
+        energyTimer = time;
+        state = CharacterState.Energy;
     }
 
     // 移動方向に基づいてキャラクターを回転させる関数
