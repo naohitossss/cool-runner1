@@ -9,4 +9,12 @@ public class ToScen1 : MonoBehaviour
     {
         SceneManager.LoadScene("Scene1");
     }
+    public void LoadGameTutorial()
+    {
+        SceneManager.LoadScene("Tutorial1");
+    }
+    public void ExilGame()
+    {
+        Application.Quit();
+    }
 }

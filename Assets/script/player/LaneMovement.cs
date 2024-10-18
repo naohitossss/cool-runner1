@@ -52,7 +52,7 @@ public class LaneMovement : MonoBehaviour
     void Update()
     {
         // 地面判定
-        isGrounded = Physics.CheckSphere(transform.position, 0.5f, groundLayer);
+        isGrounded = Physics.CheckSphere(transform.position, 0.2f, groundLayer);
 
         switch (state)
         {

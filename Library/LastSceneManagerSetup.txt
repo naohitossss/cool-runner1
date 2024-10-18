@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/tutorial1.unity
+- path: Assets/Scenes/Openpanel.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
