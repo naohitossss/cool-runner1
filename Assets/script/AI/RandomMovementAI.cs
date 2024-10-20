@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class ShadowMovement : MonoBehaviour
 {
-    public float wanderRadius = 10f;          // ランダム移動の半径
+    public float wanderRadius = 15f;          // ランダム移動の半径
     public float npcSpeed = 3.5f;             // NPCの移動速度
     public Transform lightTarget;             // 光源のTransform
     private NavMeshAgent agent;
@@ -16,7 +16,7 @@ public class ShadowMovement : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         agent.speed = npcSpeed;               // 移動速度の設定
-        agent.stoppingDistance = 1.5f;        // 停止距離の精度
+        agent.stoppingDistance = 3f;        // 停止距離の精度
         agent.acceleration = 10f;             // 加速度設定
         agent.autoBraking = false;            // 自動ブレーキをオフ
         anim = GetComponent<Animator>();

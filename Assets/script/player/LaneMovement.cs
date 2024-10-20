@@ -90,7 +90,7 @@ public class LaneMovement : MonoBehaviour
             case CharacterState.Energy:
                 energyTimer -= Time.deltaTime;
                 if(energyTimer < 0) state = CharacterState.Normal;
-                if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+                if (CanJump())
                 {
                     velocity.y = Mathf.Sqrt(jumpHeight * -10f * gravity);
                     anim.SetTrigger("Jump");
@@ -166,6 +166,15 @@ public class LaneMovement : MonoBehaviour
     }
 
     // レーン変更を処理する関数
+    public bool CanJump() {
+        bool canJump = false;
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            canJump = true;
+        }
+        return canJump;
+
+    }
     void HandleLaneChange()
     {
         if (Input.GetKeyDown(KeyCode.A) && currentLane > 0)

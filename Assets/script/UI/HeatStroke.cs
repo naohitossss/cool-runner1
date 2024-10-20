@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 //using UnityEngine.InputSystem;
 
 public class HeatStroke : MonoBehaviour
@@ -17,15 +18,14 @@ public class HeatStroke : MonoBehaviour
     [Header("在阴影处每秒减少的中暑值")]
     [Range(0, 10)]
     public float shadeRecoveryRate = 1f; // 在阴影处每秒减少的中暑值
-    public Slider strokeBar; // UI中的中暑槽
+    public UnityEngine.UI.Slider strokeBar; // UI中的中暑槽
     public ShadowCollider shadowCollider;
-    //private PlayerInput playerInput;
+    private LaneMovement laneMovement;
 
 
     private void Awake()
     {
-        // 获取输入输出组件
-        //playerInput = GetComponent<PlayerInput>();
+        laneMovement = GetComponent<LaneMovement>();
     }
 
     private void Start()
@@ -59,7 +59,7 @@ public class HeatStroke : MonoBehaviour
 
         // 判断角色是否在奔跑或静止
         bool isRunning = Input.GetKey(KeyCode.LeftShift) ;
-        bool isJumping = Input.GetKey(KeyCode.Space);
+        bool isJumping = laneMovement.CanJump();
 
 
 
@@ -68,14 +68,14 @@ public class HeatStroke : MonoBehaviour
 
             if (shadowCollider.ifShadow == false)
             {
-                currentStroke += sunExposureRate * Time.deltaTime * 3;
+                currentStroke += sunExposureRate * Time.deltaTime * 4;
             }
             else {
                 currentStroke += sunExposureRate * Time.deltaTime * 2;// 奔跑时增加中暑值
             }
         }
         else if (isJumping) {
-            currentStroke += sunExposureRate * Time.deltaTime;
+            currentStroke += 5f;
         }
 
         else if (shadowCollider.ifShadow == false)
