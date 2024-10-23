@@ -19,6 +19,7 @@ public class LaneMovement : MonoBehaviour
     public float energyTimer;                 //エナジーアイテムの持続時間
     private Vector3 knockbackDirection;
     private bool isGrounded;                  // 地面にいるかどうかのフラグ
+    private HeatStroke heatStroke;
 
     public float jumpHeight = 2f;             // ジャンプの高さ
     public float gravity = -9.81f;            // 重力
@@ -36,6 +37,7 @@ public class LaneMovement : MonoBehaviour
 
     void Start()
     {
+        heatStroke = GetComponent<HeatStroke>();
         controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
         Vector3 center = startPoint.position;
@@ -59,6 +61,7 @@ public class LaneMovement : MonoBehaviour
             case CharacterState.Normal:
                 if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
                 {
+                    heatStroke.currentStroke += 5f;
                     // ジャンプ開始
                     velocity.y = Mathf.Sqrt(jumpHeight * -10f * gravity);
                     anim.SetTrigger("Jump");
@@ -90,16 +93,15 @@ public class LaneMovement : MonoBehaviour
             case CharacterState.Energy:
                 energyTimer -= Time.deltaTime;
                 if(energyTimer < 0) state = CharacterState.Normal;
-                if (CanJump())
+                moveDirection = Vector3.forward * moveSpeed * runSpeed;
+                if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
                 {
+                    heatStroke.currentStroke += 5f;
+                    // ジャンプ開始
                     velocity.y = Mathf.Sqrt(jumpHeight * -10f * gravity);
                     anim.SetTrigger("Jump");
                     state = CharacterState.Jumping;
                 }
-                moveDirection = Vector3.forward * moveSpeed;
-                
-                moveDirection *= runSpeed;
-
                 HandleLaneChange();
 
                 velocity.y += gravity * Time.deltaTime;
@@ -156,9 +158,10 @@ public class LaneMovement : MonoBehaviour
                     state = CharacterState.Normal;
                 }
 
+
                 // Y方向の速度（重力）を適用
                 velocity.y += gravity * Time.deltaTime;
-
+                HandleLaneChange();
                 // 全体の移動（前進＋重力）を適用
                 controller.Move((moveDirection + velocity) * Time.deltaTime);
                 break;
@@ -166,15 +169,6 @@ public class LaneMovement : MonoBehaviour
     }
 
     // レーン変更を処理する関数
-    public bool CanJump() {
-        bool canJump = false;
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            canJump = true;
-        }
-        return canJump;
-
-    }
     void HandleLaneChange()
     {
         if (Input.GetKeyDown(KeyCode.A) && currentLane > 0)
@@ -217,6 +211,7 @@ public class LaneMovement : MonoBehaviour
             anim.SetTrigger("Hit");
             knockbackDirection = (transform.position - hit.transform.position).normalized;
             knockbackDirection.y = 0;
+            heatStroke.currentStroke += 10f;
             state = CharacterState.Knockback;
             knockbackTimer = knockbackDuration;
         }

@@ -5604,7 +5604,7 @@ MonoBehaviour:
   minStroke: 0
   maxStroke: 100
   currentStroke: 0
-  sunExposureRate: 4.48
+  sunExposureRate: 3
   shadeRecoveryRate: 1.07
   strokeBar: {fileID: 0}
   shadowCollider: {fileID: 0}
@@ -5620,7 +5620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d3bec4e019bc543926b1de28209b55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 7.47
   laneChangeSpeed: 20
   rotationSpeed: 12
   runSpeed: 3

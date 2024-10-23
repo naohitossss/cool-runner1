@@ -59,7 +59,6 @@ public class HeatStroke : MonoBehaviour
 
         // 判断角色是否在奔跑或静止
         bool isRunning = Input.GetKey(KeyCode.LeftShift) ;
-        bool isJumping = laneMovement.CanJump();
 
 
 
@@ -73,9 +72,6 @@ public class HeatStroke : MonoBehaviour
             else {
                 currentStroke += sunExposureRate * Time.deltaTime * 2;// 奔跑时增加中暑值
             }
-        }
-        else if (isJumping) {
-            currentStroke += 5f;
         }
 
         else if (shadowCollider.ifShadow == false)
