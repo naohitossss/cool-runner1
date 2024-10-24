@@ -14495,6 +14495,7 @@ MonoBehaviour:
   wanderRadius: 10
   npcSpeed: 3.5
   lightTarget: {fileID: 1364325822}
+  targetLightName: Directional Light
 --- !u!136 &1004583654
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -17157,6 +17158,7 @@ MonoBehaviour:
   wanderRadius: 10
   npcSpeed: 3.5
   lightTarget: {fileID: 1364325822}
+  targetLightName: Directional Light
 --- !u!136 &1194829695
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18517,6 +18519,7 @@ MonoBehaviour:
   wanderRadius: 10
   npcSpeed: 3.5
   lightTarget: {fileID: 1364325822}
+  targetLightName: Directional Light
 --- !u!136 &1312408085
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -21590,7 +21593,6 @@ GameObject:
   - component: {fileID: 1597308011}
   - component: {fileID: 1597308010}
   - component: {fileID: 1597308009}
-  - component: {fileID: 1597308013}
   - component: {fileID: 1597308014}
   m_Layer: 7
   m_Name: Plane
@@ -21686,18 +21688,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1597308013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1597308008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c20305cf96857e45b79ca62b24c0b25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1597308014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21727,7 +21717,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: ec3054e1c77dc4247aa34080c26741be, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 869bc2c7081722f47ac9919bb961e356, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1001 &1601470816
 PrefabInstance:
@@ -24059,6 +24049,7 @@ MonoBehaviour:
   wanderRadius: 10
   npcSpeed: 3.5
   lightTarget: {fileID: 1364325822}
+  targetLightName: Directional Light
 --- !u!136 &1779597504
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -28574,6 +28565,10 @@ PrefabInstance:
       propertyPath: lightTarget
       value: 
       objectReference: {fileID: 1364325822}
+    - target: {fileID: 8088932293159650242, guid: c23308ed94bb5d1499da1d1c15f3c5d3, type: 3}
+      propertyPath: jumpHeight
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8088932293159650242, guid: c23308ed94bb5d1499da1d1c15f3c5d3, type: 3}
       propertyPath: startPoint
       value: 

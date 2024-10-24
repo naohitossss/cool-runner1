@@ -19,7 +19,6 @@ public class HeatStroke : MonoBehaviour
     [Range(0, 10)]
     public float shadeRecoveryRate = 1f; // 在阴影处每秒减少的中暑值
     public UnityEngine.UI.Slider strokeBar; // UI中的中暑槽
-    public ShadowCollider shadowCollider;
     private LaneMovement laneMovement;
 
 
@@ -30,7 +29,6 @@ public class HeatStroke : MonoBehaviour
 
     private void Start()
     {
-        shadowCollider = GetComponent<ShadowCollider>();
         // 初始化中暑值
         currentStroke = minStroke;
 
@@ -53,35 +51,6 @@ public class HeatStroke : MonoBehaviour
 
     void HandleStroke()
     {
-        // 获取角色移动的输入
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        // 判断角色是否在奔跑或静止
-        bool isRunning = Input.GetKey(KeyCode.LeftShift) ;
-
-
-
-        if (isRunning)
-        {
-
-            if (shadowCollider.ifShadow == false)
-            {
-                currentStroke += sunExposureRate * Time.deltaTime * 4;
-            }
-            else {
-                currentStroke += sunExposureRate * Time.deltaTime * 2;// 奔跑时增加中暑值
-            }
-        }
-
-        else if (shadowCollider.ifShadow == false)
-        {
-            currentStroke += sunExposureRate * Time.deltaTime;
-        }
-        else if ( currentStroke > minStroke && shadowCollider.ifShadow)
-        {
-            currentStroke -= shadeRecoveryRate * Time.deltaTime; // 静止时减少中暑值
-        }
 
         // 防止中暑值超出范围
         currentStroke = Mathf.Clamp(currentStroke, minStroke, maxStroke);

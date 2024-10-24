@@ -11,6 +11,7 @@ public class ShadowMovement : MonoBehaviour
     private Vector3 newPos;
     private int maxAttempts = 10;             // 影の中の位置を探す最大試行回数
     private int GroundLayerMask;
+    public string targetLightName = "Directional Light";
 
     void Start()
     {
@@ -20,8 +21,16 @@ public class ShadowMovement : MonoBehaviour
         agent.acceleration = 10f;             // 加速度設定
         agent.autoBraking = false;            // 自動ブレーキをオフ
         anim = GetComponent<Animator>();
+        Light[] lights = FindObjectsOfType<Light>();
 
-        MoveToNewPosition();                  // 最初の目的地を設定
+        foreach (Light light in lights)
+        {
+            if (light.name == targetLightName)
+            {
+                lightTarget = light.transform;
+            }
+        }
+                MoveToNewPosition();                  // 最初の目的地を設定
         GroundLayerMask = 1 << NavMesh.GetAreaFromName("Ground");
     }
 

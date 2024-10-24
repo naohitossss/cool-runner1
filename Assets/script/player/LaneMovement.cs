@@ -1,5 +1,6 @@
 ﻿using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class LaneMovement : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class LaneMovement : MonoBehaviour
     public float laneChangeSpeed = 15f;       // 横移動（レーン変更）の速度
     public float rotationSpeed = 12f;         // 回転速度
     public float runSpeed = 3f;               // スプリント時の速度
-    public float knockbackForce =0.1111f;       // ノックバックの強さ
+    public float knockbackForce = 0.1111f;       // ノックバックの強さ
     public float knockbackDuration = 3f;      // ノックバックの持続時間
     private float knockbackTimer = 0f;        // ノックバックの経過時間
     public float energyTimer;                 //エナジーアイテムの持続時間
@@ -32,8 +33,9 @@ public class LaneMovement : MonoBehaviour
     private Vector3 moveDirection;            // 前進の移動方向
     private Vector3 targetLanePosition;       // 移動先のレーン位置
 
-    private enum CharacterState { Normal, Energy ,Knockback, Jumping }
+    private enum CharacterState { Normal, Energy, Knockback, Jumping }
     private CharacterState state = CharacterState.Normal; // キャラクター状態
+    public ShadowCollider shadowCollider;
 
     void Start()
     {
@@ -49,6 +51,8 @@ public class LaneMovement : MonoBehaviour
 
         // 初期位置を中央レーンに設定
         transform.position = lanes[currentLane];
+        shadowCollider = GetComponent<ShadowCollider>();
+
     }
 
     void Update()
@@ -63,7 +67,7 @@ public class LaneMovement : MonoBehaviour
                 {
                     heatStroke.currentStroke += 5f;
                     // ジャンプ開始
-                    velocity.y = Mathf.Sqrt(jumpHeight * -10f * gravity);
+                    velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
                     anim.SetTrigger("Jump");
                     state = CharacterState.Jumping;
                 }
@@ -73,6 +77,24 @@ public class LaneMovement : MonoBehaviour
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
                     moveDirection *= runSpeed;
+                    bool isRunning = Input.GetKey(KeyCode.LeftShift);
+
+                    if (shadowCollider.ifShadow == false)
+                    {
+                        heatStroke.currentStroke += heatStroke.sunExposureRate * Time.deltaTime * 4;
+                    }
+                    else
+                    {
+                        heatStroke.currentStroke += heatStroke.sunExposureRate * Time.deltaTime * 2;// 奔跑时增加中暑值
+                    }
+                }
+                else if (shadowCollider.ifShadow == false)
+                {
+                    heatStroke.currentStroke += heatStroke.sunExposureRate * Time.deltaTime;
+                }
+                else if (heatStroke.currentStroke > heatStroke.minStroke && shadowCollider.ifShadow)
+                {
+                    heatStroke.currentStroke -= heatStroke.shadeRecoveryRate * Time.deltaTime; // 静止时减少中暑值
                 }
 
                 // レーン変更の処理
@@ -92,13 +114,13 @@ public class LaneMovement : MonoBehaviour
                 break;
             case CharacterState.Energy:
                 energyTimer -= Time.deltaTime;
-                if(energyTimer < 0) state = CharacterState.Normal;
+                if (energyTimer < 0) state = CharacterState.Normal;
                 moveDirection = Vector3.forward * moveSpeed * runSpeed;
                 if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
                 {
                     heatStroke.currentStroke += 5f;
                     // ジャンプ開始
-                    velocity.y = Mathf.Sqrt(jumpHeight * -10f * gravity);
+                    velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
                     anim.SetTrigger("Jump");
                     state = CharacterState.Jumping;
                 }
@@ -120,7 +142,7 @@ public class LaneMovement : MonoBehaviour
                 if (knockbackTimer > 2.5f)
                 {
                     // ノックバック方向に移動
-                    controller.Move((knockbackDirection+ velocity) * knockbackForce  *Time.deltaTime);
+                    controller.Move((knockbackDirection + velocity) * knockbackForce * Time.deltaTime);
                 }
                 else if (knockbackTimer > 0f)
                 {
@@ -136,8 +158,8 @@ public class LaneMovement : MonoBehaviour
                         currentLane++;
                         targetLanePosition = new Vector3(lanes[currentLane].x, transform.position.y, transform.position.z);
                     }
-                    else if(Input.GetKeyDown(KeyCode.Space) && isGrounded)
-                {
+                    else if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+                    {
                         afterJump = true;
                     }
 
@@ -146,7 +168,7 @@ public class LaneMovement : MonoBehaviour
                 {
                     // ノックバック終了
                     state = CharacterState.Normal;
-                    if(afterJump) state = CharacterState.Jumping;
+                    if (afterJump) state = CharacterState.Jumping;
                 }
                 break;
 
@@ -156,6 +178,7 @@ public class LaneMovement : MonoBehaviour
                     // ジャンプ終了
                     velocity.y = -2f;
                     state = CharacterState.Normal;
+                    anim.SetTrigger("Grand"); 
                 }
 
 
@@ -188,7 +211,8 @@ public class LaneMovement : MonoBehaviour
     }
 
     //エナジーアイテムの機能処理
-    public void DrinkEnergy(float time) {
+    public void DrinkEnergy(float time)
+    {
         energyTimer = time;
         state = CharacterState.Energy;
     }
